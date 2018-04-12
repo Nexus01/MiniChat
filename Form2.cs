@@ -103,6 +103,7 @@ namespace WindowsFormsApplication2
                 if (flag == 0)//判断网络连接是否成功
                 {
                     newclient.Send(Encoding.UTF8.GetBytes(name + ":" + textBox1.Text + "\n"));//发送socket消息，并编码UTF-8
+                    textBox1.Text = "";//清空发送栏
                 }
             }
         }
