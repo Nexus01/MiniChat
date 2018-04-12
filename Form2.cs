@@ -17,6 +17,7 @@ namespace WindowsFormsApplication2
     {
         Form f1;//用于保存form1传过来的对象
         String ip, name;//传过来的ip和name
+        IPAddress ipdomain;//传过来的domain
         Thread thread;//子线程对象
         Socket newclient;//Socket网络对象
         int flag ;//网络标志
@@ -46,17 +47,36 @@ namespace WindowsFormsApplication2
         { 
             byte[] data = new byte[1024];//byte数据类型，用于保存接受的socket数据
             newclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//实例化socket对象
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), 8899);//设置ip地址与端口号
             try
             {
-                newclient.Connect(ie);//开始连接
+                IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), 8899);//设置ip地址与端口号
+                try
+                {
+                    newclient.Connect(ie);//开始连接
+                }
+                catch (SocketException err)
+                {
+                    UpdateList("与服务器无法建立连接！");//抛出异常
+                    UpdateList(err.ToString());
+                    flag = 1;//设置网络标志位1，也就是无法连接到网络
+                    return;
+                }
             }
-            catch (SocketException err)
+            catch (FormatException)
             {
-                UpdateList("与服务器无法建立连接！");//抛出异常
-                UpdateList(err.ToString());
-                flag = 1;//设置网络标志位1，也就是无法连接到网络
-                return;
+                ipdomain = Dns.GetHostAddresses(ip)[0];
+                IPEndPoint ie = new IPEndPoint(ipdomain, 8899);
+                try
+                {
+                    newclient.Connect(ie);//开始连接
+                }
+                catch (SocketException err)
+                {
+                    UpdateList("与服务器无法建立连接！");//抛出异常
+                    UpdateList(err.ToString());
+                    flag = 1;//设置网络标志位1，也就是无法连接到网络
+                    return;
+                }
             }
             int recv = newclient.Receive(data);//接收服务器上线数据
             string stringdata = Encoding.Default.GetString(data, 0, recv);//将byte数据转化为字符类型
