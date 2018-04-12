@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniChat.exe" size="12288">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MiniChat.exe" size="13312">
       <assemblyIdentity name="MiniChat" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>hUbW5Y0EW2b+8toP8md/TpRoT+V3bVhK4MVe3Tv4Vro=</dsig:DigestValue>
+        <dsig:DigestValue>yZdh7bmzztNcYdEDa9rUcFom5N/QTafcn+plrGfA588=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

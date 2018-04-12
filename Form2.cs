@@ -27,8 +27,9 @@ namespace WindowsFormsApplication2
             this.ip = ip;//接收ip字符
             this.name = name;//接收用户名字符
             InitializeComponent();
+            this.textBox1.TabIndex = 0;
             Control.CheckForIllegalCrossThreadCalls = false;//关闭子线程刷新ui限制
-           
+            
            
         }
 
@@ -41,6 +42,7 @@ namespace WindowsFormsApplication2
 
             this.thread = new Thread(new ThreadStart(this.recv));//实例化子线程
             this.thread.Start();//开启子线程
+            
             
         }
         private void recv()//子线程
@@ -116,7 +118,7 @@ namespace WindowsFormsApplication2
 
         }
 
-        private void button1_Click(object sender, EventArgs e)//点击发送按钮调用该函数
+        public void button1_Click(object sender, EventArgs e)//点击发送按钮调用该函数
         {
             if (!textBox1.Text.Equals(""))//判断输入的消息是否为空
             {
@@ -124,8 +126,29 @@ namespace WindowsFormsApplication2
                 {
                     newclient.Send(Encoding.UTF8.GetBytes(name + ":" + textBox1.Text + "\n"));//发送socket消息，并编码UTF-8
                     textBox1.Text = "";//清空发送栏
+                    textBox1.Focus();
                 }
             }
+        }
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (comboBox1.Text == "按Enter发送信息")
+            {
+                if (keyData == Keys.Enter && !this.button1.Focused)
+                {
+                    button1_Click(null, null);
+                    return true;//返回 true 以指示它已处理该键
+                }
+            }
+            if (comboBox1.Text == "按Ctrl+Enter发送信息")
+            {
+                if (keyData == (Keys.Control | Keys.Enter) && !this.button1.Focused)
+                {
+                    button1_Click(null, null);
+                    return true;//返回 true 以指示它已处理该键
+                }
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }
