@@ -33,12 +33,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.port = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(304, 362);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(291, 98);
             this.button1.TabIndex = 0;
@@ -49,7 +51,7 @@
             // ipaddr
             // 
             this.ipaddr.Location = new System.Drawing.Point(304, 139);
-            this.ipaddr.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ipaddr.Margin = new System.Windows.Forms.Padding(4);
             this.ipaddr.Name = "ipaddr";
             this.ipaddr.Size = new System.Drawing.Size(289, 25);
             this.ipaddr.TabIndex = 1;
@@ -68,7 +70,7 @@
             // name
             // 
             this.name.Location = new System.Drawing.Point(304, 246);
-            this.name.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.name.Margin = new System.Windows.Forms.Padding(4);
             this.name.Name = "name";
             this.name.Size = new System.Drawing.Size(289, 25);
             this.name.TabIndex = 3;
@@ -84,17 +86,36 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "用户名：";
             // 
+            // port
+            // 
+            this.port.Location = new System.Drawing.Point(662, 138);
+            this.port.Name = "port";
+            this.port.Size = new System.Drawing.Size(131, 25);
+            this.port.TabIndex = 5;
+            this.port.Text = "8899";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(668, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "端口";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(929, 582);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.port);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.name);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ipaddr);
             this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "登录聊天室";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -110,6 +131,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox port;
+        private System.Windows.Forms.Label label3;
     }
 }
 

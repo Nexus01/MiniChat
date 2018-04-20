@@ -16,16 +16,17 @@ namespace WindowsFormsApplication2
     public partial class Form2 : Form
     {
         Form f1;//用于保存form1传过来的对象
-        String ip, name;//传过来的ip和name
+        String ip, name,port;//传过来的ip和name
         IPAddress ipdomain;//传过来的domain
         Thread thread;//子线程对象
         Socket newclient;//Socket网络对象
         int flag ;//网络标志
-        public Form2(Form f1,String ip,String name)
+        public Form2(Form f1,String ip,String name,String port)
         {
             this.f1 = f1;//接收登录窗口form1对象
             this.ip = ip;//接收ip字符
             this.name = name;//接收用户名字符
+            this.port = port;
             InitializeComponent();
             this.textBox1.TabIndex = 0;
             Control.CheckForIllegalCrossThreadCalls = false;//关闭子线程刷新ui限制
@@ -51,7 +52,7 @@ namespace WindowsFormsApplication2
             newclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//实例化socket对象
             try
             {
-                IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), 8899);//设置ip地址与端口号
+                IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), int.Parse(port));//设置ip地址与端口号
                 try
                 {
                     newclient.Connect(ie);//开始连接
@@ -67,7 +68,7 @@ namespace WindowsFormsApplication2
             catch (FormatException)
             {
                 ipdomain = Dns.GetHostAddresses(ip)[0];
-                IPEndPoint ie = new IPEndPoint(ipdomain, 8899);
+                IPEndPoint ie = new IPEndPoint(ipdomain,int.Parse(port));
                 try
                 {
                     newclient.Connect(ie);//开始连接
