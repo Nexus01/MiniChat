@@ -26,13 +26,13 @@ namespace WindowsFormsApplication2
         {
             if (!ipaddr.Text.Equals("")&&!name.Text.Equals(""))//判断ip地址和用户名是否为空
             {
-                Form2 f2 = new Form2(this,ipaddr.Text,name.Text);//实例化一个新窗口
+                Form2 f2 = new Form2(this,ipaddr.Text,name.Text,port.Text);//实例化一个新窗口
                 f2.Show();//打开新窗口
                 this.Hide();//隐藏当前窗口
             }
             else
             {
-                MessageBox.Show("请输入您的IP或用户名！", "聊天室", MessageBoxButtons.OK, MessageBoxIcon.Question);//如果其中一个为空，则弹出
+                MessageBox.Show("请输入您的IP或用户名还有端口！", "聊天室", MessageBoxButtons.OK, MessageBoxIcon.Question);//如果其中一个为空，则弹出
             }
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)//点击窗口x调用该函数

@@ -16,18 +16,21 @@ namespace WindowsFormsApplication2
     public partial class Form2 : Form
     {
         Form f1;//用于保存form1传过来的对象
-        String ip, name;//传过来的ip和name
+        String ip, name,port;//传过来的ip和name
+        IPAddress ipdomain;//传过来的domain
         Thread thread;//子线程对象
         Socket newclient;//Socket网络对象
         int flag ;//网络标志
-        public Form2(Form f1,String ip,String name)
+        public Form2(Form f1,String ip,String name,String port)
         {
             this.f1 = f1;//接收登录窗口form1对象
             this.ip = ip;//接收ip字符
             this.name = name;//接收用户名字符
+            this.port = port;
             InitializeComponent();
+            this.textBox1.TabIndex = 0;
             Control.CheckForIllegalCrossThreadCalls = false;//关闭子线程刷新ui限制
-           
+            
            
         }
 
@@ -41,22 +44,42 @@ namespace WindowsFormsApplication2
             this.thread = new Thread(new ThreadStart(this.recv));//实例化子线程
             this.thread.Start();//开启子线程
             
+            
         }
         private void recv()//子线程
         { 
             byte[] data = new byte[1024];//byte数据类型，用于保存接受的socket数据
             newclient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);//实例化socket对象
-            IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), 8899);//设置ip地址与端口号
             try
             {
-                newclient.Connect(ie);//开始连接
+                IPEndPoint ie = new IPEndPoint(IPAddress.Parse(ip), int.Parse(port));//设置ip地址与端口号
+                try
+                {
+                    newclient.Connect(ie);//开始连接
+                }
+                catch (SocketException err)
+                {
+                    UpdateList("与服务器无法建立连接！");//抛出异常
+                    UpdateList(err.ToString());
+                    flag = 1;//设置网络标志位1，也就是无法连接到网络
+                    return;
+                }
             }
-            catch (SocketException err)
+            catch (FormatException)
             {
-                UpdateList("与服务器无法建立连接！");//抛出异常
-                UpdateList(err.ToString());
-                flag = 1;//设置网络标志位1，也就是无法连接到网络
-                return;
+                ipdomain = Dns.GetHostAddresses(ip)[0];
+                IPEndPoint ie = new IPEndPoint(ipdomain,int.Parse(port));
+                try
+                {
+                    newclient.Connect(ie);//开始连接
+                }
+                catch (SocketException err)
+                {
+                    UpdateList("与服务器无法建立连接！");//抛出异常
+                    UpdateList(err.ToString());
+                    flag = 1;//设置网络标志位1，也就是无法连接到网络
+                    return;
+                }
             }
             int recv = newclient.Receive(data);//接收服务器上线数据
             string stringdata = Encoding.Default.GetString(data, 0, recv);//将byte数据转化为字符类型
@@ -96,15 +119,37 @@ namespace WindowsFormsApplication2
 
         }
 
-        private void button1_Click(object sender, EventArgs e)//点击发送按钮调用该函数
+        public void button1_Click(object sender, EventArgs e)//点击发送按钮调用该函数
         {
             if (!textBox1.Text.Equals(""))//判断输入的消息是否为空
             {
                 if (flag == 0)//判断网络连接是否成功
                 {
                     newclient.Send(Encoding.UTF8.GetBytes(name + ":" + textBox1.Text + "\n"));//发送socket消息，并编码UTF-8
+                    textBox1.Text = "";//清空发送栏
+                    textBox1.Focus();
                 }
             }
+        }
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (comboBox1.Text == "按Enter发送信息")
+            {
+                if (keyData == Keys.Enter && !this.button1.Focused)
+                {
+                    button1_Click(null, null);
+                    return true;//返回 true 以指示它已处理该键
+                }
+            }
+            if (comboBox1.Text == "按Ctrl+Enter发送信息")
+            {
+                if (keyData == (Keys.Control | Keys.Enter) && !this.button1.Focused)
+                {
+                    button1_Click(null, null);
+                    return true;//返回 true 以指示它已处理该键
+                }
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

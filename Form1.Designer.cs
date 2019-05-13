@@ -33,13 +33,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.name = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.port = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(228, 290);
+            this.button1.Location = new System.Drawing.Point(304, 362);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(218, 78);
+            this.button1.Size = new System.Drawing.Size(291, 98);
             this.button1.TabIndex = 0;
             this.button1.Text = "登录";
             this.button1.UseVisualStyleBackColor = true;
@@ -47,47 +50,72 @@
             // 
             // ipaddr
             // 
-            this.ipaddr.Location = new System.Drawing.Point(228, 111);
+            this.ipaddr.Location = new System.Drawing.Point(304, 139);
+            this.ipaddr.Margin = new System.Windows.Forms.Padding(4);
             this.ipaddr.Name = "ipaddr";
-            this.ipaddr.Size = new System.Drawing.Size(218, 21);
+            this.ipaddr.Size = new System.Drawing.Size(289, 25);
             this.ipaddr.TabIndex = 1;
-            this.ipaddr.Text = "120.78.158.58";
+            this.ipaddr.Text = "127.1";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(226, 80);
+            this.label1.Location = new System.Drawing.Point(301, 100);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(68, 15);
             this.label1.TabIndex = 2;
             this.label1.Text = "IP地址：";
             // 
             // name
             // 
-            this.name.Location = new System.Drawing.Point(228, 197);
+            this.name.Location = new System.Drawing.Point(304, 246);
+            this.name.Margin = new System.Windows.Forms.Padding(4);
             this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(218, 21);
+            this.name.Size = new System.Drawing.Size(289, 25);
             this.name.TabIndex = 3;
+            this.name.Text = "test";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(228, 158);
+            this.label2.Location = new System.Drawing.Point(304, 198);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "用户名：";
             // 
+            // port
+            // 
+            this.port.Location = new System.Drawing.Point(662, 138);
+            this.port.Name = "port";
+            this.port.Size = new System.Drawing.Size(131, 25);
+            this.port.TabIndex = 5;
+            this.port.Text = "8899";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(668, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(37, 15);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "端口";
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(697, 466);
+            this.ClientSize = new System.Drawing.Size(929, 582);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.port);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.name);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.ipaddr);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "登录聊天室";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -103,6 +131,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox name;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox port;
+        private System.Windows.Forms.Label label3;
     }
 }
 
